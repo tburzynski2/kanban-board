@@ -2,6 +2,11 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
+// Save list lane elements to variables
+const todoListEl = $("#todo-cards");
+const inProgressListEl = $("#in-progress-cards");
+const doneListEl = $("#done-cards");
+
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
   // Based on Stack Overflow thread: https://stackoverflow.com/questions/3231459/how-can-i-create-unique-ids-with-javascript
@@ -27,7 +32,26 @@ function createTaskCard(task) {
 }
 
 // Todo: create a function to render the task list and make cards draggable
-function renderTaskList() {}
+function renderTaskList() {
+  for (const task of taskList) {
+    // Create card
+    const cardEl = createTaskCard(task);
+
+    // Append to appropriate list
+    if (task.status === "todo") {
+      todoListEl.append(cardEl);
+    } else if (task.status === "in-progress") {
+      inProgressListEl.append(cardEl);
+    } else {
+      doneListEl.append(cardEl);
+    }
+  }
+
+  // Make draggable
+  $(".draggable").draggable({
+    stack: ".swim-lanes",
+  });
+}
 
 // Todo: create a function to handle adding a new task
 function handleAddTask(event) {}
