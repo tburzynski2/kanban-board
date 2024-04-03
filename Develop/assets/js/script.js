@@ -3,7 +3,11 @@ let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 // Todo: create a function to generate a unique task id
-function generateTaskId() {}
+function generateTaskId() {
+  // Based on Stack Overflow thread: https://stackoverflow.com/questions/3231459/how-can-i-create-unique-ids-with-javascript
+  // Return current datetime string concatenated w/ integer portion of Math.random() string
+  return Date.now().toString() + Math.random().toString().substring(2);
+}
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {}
