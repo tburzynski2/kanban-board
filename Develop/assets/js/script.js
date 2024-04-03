@@ -41,6 +41,10 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
+  todoListEl.empty();
+  inProgressListEl.empty();
+  doneListEl.empty();
+
   for (const task of taskList) {
     // Create card
     const cardEl = createTaskCard(task);
@@ -77,8 +81,6 @@ function handleAddTask(event) {
     description: taskDescription,
     status: "todo",
   };
-
-  console.log(newTask);
 
   // Add new task to the list of tasks
   taskList.push(newTask);
