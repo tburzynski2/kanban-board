@@ -67,13 +67,13 @@
             <div class="modal-body">
               <form>
                 <label for="taskTitle">Task Title</label>
-                <input type="text" name="taskTitle" />
+                <input type="text" id="task-title" name="taskTitle" />
                 <label for="date">Task Due Date</label>
-                <input type="text" id="datepicker" name="date" />
+                <input type="text" id="task-due-date" name="date" />
                 <label for="description">Task Description</label>
                 <textarea
                   name="description"
-                  id="taskDescription"
+                  id="task-description"
                   cols="30"
                   rows="10"
                 ></textarea>
@@ -87,7 +87,7 @@
               >
                 Cancel
               </button>
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary" id="submit-button">
                 Save changes
               </button>
             </div>

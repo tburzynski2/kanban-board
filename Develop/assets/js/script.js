@@ -1,6 +1,14 @@
 // Retrieve tasks and nextId from localStorage
-let taskList = JSON.parse(localStorage.getItem("tasks"));
+let taskListA;
+let taskList = JSON.parse(localStorage.getItem("tasks")) || [];
 let nextId = JSON.parse(localStorage.getItem("nextId"));
+
+// Grab references to the important DOM elements
+const swimLanesContainerEl = $(".swim-lanes");
+const taskNameInputEl = $("#task-name");
+const taskDueDateInputEl = $("#task-due-date");
+const taskDescriptionInputEl = $("#task-description");
+const submitButtonEl = $("#submit-button");
 
 // Save list lane elements to variables
 const todoListEl = $("#todo-cards");
@@ -54,7 +62,28 @@ function renderTaskList() {
 }
 
 // Todo: create a function to handle adding a new task
-function handleAddTask(event) {}
+function handleAddTask(event) {
+  // Get form field values
+  const taskId = generateTaskId();
+  const taskName = taskNameInputEl.val();
+  const taskDueDate = taskDueDateInputEl.val();
+  const taskDescription = taskDescriptionInputEl.val();
+
+  // New project data
+  const newTask = {
+    id: taskId,
+    name: taskName,
+    dueDate: taskDueDate,
+    description: taskDescription,
+    status: "todo",
+  };
+  // add new project to the list of savedProject
+  taskList.push(newTask);
+  // save cards to localstorage
+  localStorage.setItem("projects", JSON.stringify(taskList));
+
+  renderTaskList();
+}
 
 // Todo: create a function to handle deleting a task
 function handleDeleteTask(event) {}
@@ -63,4 +92,7 @@ function handleDeleteTask(event) {}
 function handleDrop(event, ui) {}
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
-$(document).ready(function () {});
+$(document).ready(function () {
+  submitButtonEl.on("click", handleAddTask);
+  renderTaskList();
+});
