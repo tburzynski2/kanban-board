@@ -23,9 +23,8 @@ function generateTaskId() {
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-  const taskId = generateTaskId();
   const card = $(`
-    <div class="card draggable" data-id="${taskId}" data-status="${task.status}">
+    <div class="card draggable" data-id="${task.id}" data-status="${task.status}">
       <div class="card-body">
         <h5 class="card-title">${task.name}</h5>
         <p class="card-text">Due: ${task.dueDate}</p>
@@ -92,7 +91,24 @@ function handleAddTask(event) {
 }
 
 // Todo: create a function to handle deleting a task
-function handleDeleteTask(event) {}
+function handleDeleteTask(event) {
+  // Get id of the card
+  const cardId = $(event.target).closest(".card").data("id");
+  const tasksToKeep = [];
+
+  // Loop through them
+  for (const task of taskList) {
+    if (cardId !== task.id) {
+      tasksToKeep.push(task);
+    }
+  }
+
+  // Re-save projects in localStorage
+  localStorage.setItem("tasks", JSON.stringify(tasksToKeep));
+
+  // Re-render cards in lists
+  renderTaskList();
+}
 
 // Todo: create a function to handle dropping a task into a new status lane
 function handleDrop(event, ui) {}
@@ -104,4 +120,5 @@ $(document).ready(function () {
   });
   submitButtonEl.on("click", handleAddTask);
   renderTaskList();
+  $(".swim-lanes").on("click", ".delete-card", handleDeleteTask);
 });
