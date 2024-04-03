@@ -4,7 +4,7 @@ let nextId = JSON.parse(localStorage.getItem("nextId"));
 
 // Grab references to the important DOM elements
 const swimLanesContainerEl = $(".swim-lanes");
-const taskNameInputEl = $("#task-name");
+const taskNameInputEl = $("#task-title");
 const taskDueDateInputEl = $("#task-due-date");
 const taskDescriptionInputEl = $("#task-description");
 const submitButtonEl = $("#submit-button");
@@ -69,7 +69,7 @@ function handleAddTask(event) {
   const taskDueDate = taskDueDateInputEl.val();
   const taskDescription = taskDescriptionInputEl.val();
 
-  // New project data
+  // New task data
   const newTask = {
     id: taskId,
     name: taskName,
@@ -77,10 +77,14 @@ function handleAddTask(event) {
     description: taskDescription,
     status: "todo",
   };
-  // add new project to the list of savedProject
+
+  console.log(newTask);
+
+  // Add new task to the list of tasks
   taskList.push(newTask);
-  // save cards to localstorage
-  localStorage.setItem("projects", JSON.stringify(taskList));
+
+  // Save cards to localstorage
+  localStorage.setItem("tasks", JSON.stringify(taskList));
 
   renderTaskList();
 }
