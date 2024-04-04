@@ -40,9 +40,9 @@ function createTaskCard(task) {
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-  todoListEl.empty();
-  inProgressListEl.empty();
-  doneListEl.empty();
+  todoListEl.html("");
+  inProgressListEl.html("");
+  doneListEl.html("");
 
   for (const task of taskList) {
     // Create card
@@ -96,12 +96,17 @@ function handleDeleteTask(event) {
   const cardId = $(event.target).closest(".card").data("id");
   const tasksToKeep = [];
 
+  console.log(`ID to delete: ${cardId}`);
+
   // Loop through them
   for (const task of taskList) {
     if (cardId !== task.id) {
       tasksToKeep.push(task);
     }
   }
+
+  // Setting task list array to "tasks to keep" array
+  taskList = tasksToKeep;
 
   // Re-save projects in localStorage
   localStorage.setItem("tasks", JSON.stringify(tasksToKeep));
@@ -115,10 +120,14 @@ function handleDrop(event, ui) {}
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
+  // Apply dateppicker UI to Task Due Date input
   $(function () {
     taskDueDateInputEl.datepicker();
   });
+
   submitButtonEl.on("click", handleAddTask);
+
   renderTaskList();
-  $(".swim-lanes").on("click", ".delete-card", handleDeleteTask);
+
+  swimLanesContainerEl.on("click", ".delete-card", handleDeleteTask);
 });
