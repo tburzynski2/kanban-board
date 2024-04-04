@@ -116,7 +116,29 @@ function handleDeleteTask(event) {
 }
 
 // Todo: create a function to handle dropping a task into a new status lane
-function handleDrop(event, ui) {}
+function handleDrop(event, ui) {
+  console.log("event");
+  const targetListId = event.target.id.replace("-cards", "");
+  console.log(targetListId);
+  console.log(ui);
+
+  const card = ui.draggable[0];
+  const taskId = $(card).data("id");
+
+  for (const task of taskList) {
+    // Find object in savedProject with same id
+    if (task.id === taskId) {
+      // Update it's status to the target swim-lane's ID
+      task.status = targetListId;
+    }
+  }
+
+  // Re-save updated projectData list
+  localStorage.setItem("tasks", JSON.stringify(taskList));
+
+  // Re-render the cards
+  renderTaskList();
+}
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
@@ -125,9 +147,17 @@ $(document).ready(function () {
     taskDueDateInputEl.datepicker();
   });
 
+  // Handle adding tasks when a user clicks submit
   submitButtonEl.on("click", handleAddTask);
 
+  // Render cards to list
   renderTaskList();
 
+  // Make each list droppable
+  $(".swim-lane").droppable({
+    drop: handleDrop,
+  });
+
+  // Event delegation with delete button
   swimLanesContainerEl.on("click", ".delete-card", handleDeleteTask);
 });
