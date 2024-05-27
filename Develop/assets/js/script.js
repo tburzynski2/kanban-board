@@ -35,6 +35,22 @@ function createTaskCard(task) {
     </div>
   `);
 
+  // Determine if the card should be colored to indicate an upcoming or overdue due date
+  const now = dayjs();
+  const dueDate = dayjs(task.dueDate);
+
+  console.log(
+    `Now: ${now}\nDue date: ${dueDate}\nDifference: ${now.diff(dueDate, "day")}`
+  );
+
+  if (now.diff(dueDate, "day") > 0) {
+    card.addClass("overdue");
+    console.log("assigning class overdue");
+  } else if (now.diff(dueDate, "day") > -2) {
+    card.addClass("due");
+    console.log("assigning class due");
+  }
+
   return card;
 }
 

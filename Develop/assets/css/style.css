@@ -15,6 +15,15 @@ body {
   cursor: grab;
 }
 
+.due {
+  background-color: yellow;
+}
+
+.overdue {
+  background-color: red;
+  color: white;
+}
+
 /* Making list lanes full height so they can be droppable */
 .swim-lane {
   height: 100%;
