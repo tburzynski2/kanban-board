@@ -43,10 +43,10 @@ function createTaskCard(task) {
     `Now: ${now}\nDue date: ${dueDate}\nDifference: ${now.diff(dueDate, "day")}`
   );
 
-  if (now.diff(dueDate, "day") > 0) {
+  if (task.status !== "done" && now.diff(dueDate, "day") > 0) {
     card.addClass("overdue");
     console.log("assigning class overdue");
-  } else if (now.diff(dueDate, "day") > -2) {
+  } else if (task.status !== "done" && now.diff(dueDate, "day") > -2) {
     card.addClass("due");
     console.log("assigning class due");
   }
