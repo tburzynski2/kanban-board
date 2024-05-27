@@ -81,12 +81,19 @@ function renderTaskList() {
 }
 
 // Todo: create a function to handle adding a new task
-function handleAddTask(event) {
+function handleAddTask(e) {
+  e.preventDefault();
+
   // Get form field values
   const taskId = generateTaskId();
   const taskName = taskNameInputEl.val();
   const taskDueDate = taskDueDateInputEl.val();
   const taskDescription = taskDescriptionInputEl.val();
+
+  // Reset form fields
+  taskNameInputEl.val("");
+  taskDueDateInputEl.val("");
+  taskDescriptionInputEl.val("");
 
   // New task data
   const newTask = {
